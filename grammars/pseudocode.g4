@@ -17,18 +17,14 @@ statement:
 	| inputstmt
 	| printstmt
 	| constdecl
-	| letstmt
 	| vardecl
 	| arraydecl
+	| letstmt
 	| expression;
 
 pass: PASS;
 
-<<<<<<< HEAD
 constdecl: CONSTANT varname EQ expression;
-=======
-constdecl: CONSTANT varname EQ literal;
->>>>>>> main
 
 vardecl: DECLARE varname COLON type;
 
@@ -46,7 +42,7 @@ printlist: expression (COMMA expression?)*;
 
 letstmt: LET? variableassignment;
 
-variableassignment: var LARROW expression;
+variableassignment: var ARROW expression;
 
 casestmt:
 	CASE OF var (caseclause | rangeClause)+ otherwiseClause? endcasestmt;
@@ -103,13 +99,26 @@ endprocstmt: ENDPROCEDURE;
 returnstmt: RETURN expression;
 
 // expressions and such
-func: funcCall | var | (LPAREN expression RPAREN) | literal;
+func: literal | funcCall | var | (LPAREN expression RPAREN);
 
 funcCall: varname LPAREN exprlist? RPAREN;
 
 arrayaccess:
 	varname LBRACKET expression RBRACKET
 	| varname LBRACKET expression RBRACKET;
+
+relop: (GTE)
+	| (GT EQ)
+	| (EQ GT)
+	| LTE
+	| (LT EQ)
+	| (EQ LT)
+	| neq
+	| EQ
+	| GT
+	| LT;
+
+neq: LT GT;
 
 literal:
 	strLiteral
@@ -137,7 +146,7 @@ addingExpression:
 	multiplyingExpression ((PLUS | MINUS) multiplyingExpression)*;
 
 relationalExpression:
-	addingExpression (RELOP addingExpression)?
+	addingExpression ((relop) addingExpression)?
 	| BOOLEANLITERAL;
 
 expression:
@@ -202,13 +211,9 @@ DIV: '/';
 
 MOD: 'MOD';
 
-NEQ: LT GT;
+GTE: '>= ';
 
-RELOP: GTE | LTE | NEQ | EQ | GT | LT;
-
-GTE: GT EQ;
-
-LTE: LT EQ;
+LTE: '<= ';
 
 GT: '>';
 
@@ -220,7 +225,7 @@ LET: 'LET';
 
 EQ: '=';
 
-LARROW: '<-';
+ARROW: '<-';
 
 FOR: 'FOR';
 

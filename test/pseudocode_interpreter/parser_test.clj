@@ -148,21 +148,10 @@
 
 (deftest constdecl-test
   (testing "Constant Declaration"
-<<<<<<< HEAD
     (is (= (parse "CONSTANT PI = 3.14")
            '(:prog
              (:line (:statement (:constdecl "CONSTANT" (:varname "PI") "=" (:expression (:func (:literal (:realLiteral "3.14")))))))
              "<EOF>")))))
-=======
-    (is (= '(:prog
-             (:line (:statement
-                     (:constdecl "CONSTANT"
-                                 (:varname "PI")
-                                 "="
-                                 (:literal (:realLiteral "3.14")))))
-             "<EOF>")
-           (parse "CONSTANT PI = 3.14")))))
->>>>>>> main
 
 (deftest letstmt-test
   (testing "Variable Assignment"
@@ -279,7 +268,7 @@
                   (:expression
                    (:relationalExpression
                     (:addingExpression (:multiplyingExpression (:signExpression (:func (:var (:varname "x"))))))
-                    "="
+                    (:relop "=")
                     (:addingExpression (:multiplyingExpression (:signExpression (:func (:literal (:intLiteral "1"))))))))
                   (:thenstmt "THEN"
                              (:statement (:pass "PASS")))
@@ -297,7 +286,7 @@
                   (:expression
                    (:relationalExpression
                     (:addingExpression (:multiplyingExpression (:signExpression (:func (:var (:varname "x"))))))
-                    "="
+                    (:relop "=")
                     (:addingExpression (:multiplyingExpression (:signExpression (:func (:literal (:intLiteral "1"))))))))
                   (:thenstmt  "THEN"
                               (:statement (:pass "PASS")))
@@ -353,7 +342,7 @@
                 (:expression
                  (:relationalExpression
                   (:addingExpression (:multiplyingExpression (:signExpression (:func (:var (:varname "x"))))))
-                  "="
+                  (:relop "=")
                   (:addingExpression (:multiplyingExpression (:signExpression (:func (:literal (:intLiteral "1"))))))))
                 (:statement (:pass "PASS"))
                 (:endwhilestmt "ENDWHILE"))))
@@ -375,7 +364,7 @@
                  (:expression
                   (:relationalExpression
                    (:addingExpression (:multiplyingExpression (:signExpression (:func (:var (:varname "x"))))))
-                   "="
+                   (:relop "=")
                    (:addingExpression (:multiplyingExpression (:signExpression (:func (:literal (:intLiteral "1"))))))))))))
              "<EOF>")
            (parse "REPEAT
@@ -516,13 +505,4 @@
                    (:statement (:pass "PASS")))
                   (:otherwiseClause "OTHERWISE" ":" (:statement (:pass "PASS")))
                   (:endcasestmt "ENDCASE"))))
-<<<<<<< HEAD
                "<EOF>"))))))
-=======
-               "<EOF>")
-             (parse "CASE OF x
-                        1 : PASS
-                        2 TO 10 : PASS
-                        OTHERWISE : PASS
-                     ENDCASE"))))))
->>>>>>> main
