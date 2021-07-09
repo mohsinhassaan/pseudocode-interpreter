@@ -1,6 +1,6 @@
 (ns pseudocode-interpreter.core
   (:require [pseudocode-interpreter.parser :refer [parse]]
-            [pseudocode-interpreter.evaluator :refer [execute-prog]]
+            [pseudocode-interpreter.evaluator :refer [evaluate]]
             [clojure.pprint :refer [pprint]])
   (:gen-class))
 
@@ -14,7 +14,7 @@
   (-> s
       parse
       log-and-return
-      execute-prog))
+      evaluate))
 
 (defn execute-code
   [f]
@@ -23,7 +23,8 @@
 (defn -main
   "Interpret code from file"
   [& args]
-  (if-let [file (first args)]
-    (execute-code file)
-    (execute-string (slurp *in*))))
+  (pprint
+    (if-let [file (first args)]
+      (execute-code file)
+      (execute-string (slurp *in*)))))
 
