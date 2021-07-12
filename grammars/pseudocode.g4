@@ -99,7 +99,10 @@ endprocstmt: ENDPROCEDURE;
 returnstmt: RETURN expression;
 
 // expressions and such
-func: literal | funcCall | var | (LPAREN expression RPAREN);
+func: funcCall
+	| var
+	| literal
+	| (LPAREN expression RPAREN);
 
 funcCall: varname LPAREN exprlist? RPAREN;
 
@@ -281,7 +284,6 @@ STRING: 'STRING';
 
 BOOLEAN: 'BOOLEAN';
 
-COMMENT: '//' ~[\r\n]* -> skip;
 
 STRINGLITERAL: '"' ~ ["\r\n]* '"';
 CHARLITERAL: '\'' ('\\' [rntf\\] | ~ ['\r\n\t\f]*) '\'';
@@ -289,7 +291,10 @@ INTEGERLITERAL: SIGN? ('0' .. '9')+;
 REALLITERAL: SIGN? ('0' .. '9')* '.' ('0' .. '9')+;
 BOOLEANLITERAL: 'TRUE' | 'FALSE';
 SIGN: '+' | '-';
+fragment LETTERS: [a-zA-Z]+;
+fragment NUMBERS: [0-9]+;
+
 VARNAME: (LETTERS | UNDERSCORE) (LETTERS | UNDERSCORE | NUMBERS)*;
-LETTERS: ('a' .. 'z' | 'A' .. 'Z')+;
-NUMBERS: ('0' .. '9')+;
+
+COMMENT: '//' ~[\r\n]* -> skip;
 WS: [ \r\n\t]+ -> channel (HIDDEN);
