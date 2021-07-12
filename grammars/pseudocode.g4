@@ -285,7 +285,7 @@ STRING: 'STRING';
 BOOLEAN: 'BOOLEAN';
 
 
-STRINGLITERAL: '"' ~ ["\r\n]* '"';
+STRINGLITERAL: '"' ('\\"' | ~ ["\r\n])* '"';
 CHARLITERAL: '\'' ('\\' [rntf\\] | ~ ['\r\n\t\f]*) '\'';
 INTEGERLITERAL: SIGN? ('0' .. '9')+;
 REALLITERAL: SIGN? ('0' .. '9')* '.' ('0' .. '9')+;
