@@ -505,4 +505,9 @@
                    (:statement (:pass "PASS")))
                   (:otherwiseClause "OTHERWISE" ":" (:statement (:pass "PASS")))
                   (:endcasestmt "ENDCASE"))))
-               "<EOF>"))))))
+               "<EOF>")
+             (parse "CASE OF x
+                        1 : PASS
+                        2 TO 10 : PASS
+                        OTHERWISE : PASS
+                      ENDCASE"))))))
